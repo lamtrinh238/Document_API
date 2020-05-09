@@ -1,4 +1,5 @@
 ﻿using Document_API.Filters;
+using Document_API.Utilities;
 using System.Collections.Generic;
 using System.Web.Http;
 
@@ -7,7 +8,7 @@ namespace Document_API.Controllers
     public class ValuesController : ApiController
     {
         // GET api/values
-        [JwtAuthentication(Realm = "lam")]
+        [JwtAuthentication(EnumRole.Contributor)]
         public IEnumerable<string> Get()
         {
             return new string[] { "value1", "value2" };

@@ -175,6 +175,8 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AuthenController.cs" />
+    <Compile Include="Controllers\CategoriesController.cs" />
+    <Compile Include="Controllers\DocumentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="DAL\DocumentContext.cs" />
@@ -192,7 +194,17 @@
     <Compile Include="Migrations\202005061615570_UpdateUserTable.designer.cs">
       <DependentUpon>202005061615570_UpdateUserTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202005081451376_AddCategory.cs" />
+    <Compile Include="Migrations\202005081451376_AddCategory.designer.cs">
+      <DependentUpon>202005081451376_AddCategory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005081453121_AddDocument.cs" />
+    <Compile Include="Migrations\202005081453121_AddDocument.designer.cs">
+      <DependentUpon>202005081453121_AddDocument.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Document.cs" />
+    <Compile Include="Models\Category.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\Enums.cs" />
@@ -286,6 +298,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202005061615570_UpdateUserTable.resx">
       <DependentUpon>202005061615570_UpdateUserTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005081451376_AddCategory.resx">
+      <DependentUpon>202005081451376_AddCategory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005081453121_AddDocument.resx">
+      <DependentUpon>202005081453121_AddDocument.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

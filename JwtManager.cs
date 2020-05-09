@@ -14,7 +14,7 @@ namespace Document_API
         /// </summary>
         private const string Secret = "db3OIsj+BXE9NZDy0t8W3TcNekrF+2d/1sFnWG4HnV8TZY30iTOdtVWJG8abWvB1GlOgJuQZdcF2Luqm/hccMw==";
 
-        public static string GenerateToken(Models.User user, int expireMinutes = 20)
+        public static string GenerateToken(Models.User user, int expireDays = 7)
         {
             var symmetricKey = Convert.FromBase64String(Secret);
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -28,7 +28,7 @@ namespace Document_API
                             new Claim(ClaimTypes.Role, user.Role.ToString())
                         }),
 
-                Expires = now.AddMinutes(Convert.ToInt32(expireMinutes)),
+                Expires = now.AddDays(Convert.ToInt32(expireDays)),
 
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(symmetricKey), SecurityAlgorithms.HmacSha256Signature)
             };

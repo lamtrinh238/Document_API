@@ -13,13 +13,22 @@ namespace Document_API.Models
         [Key]
         public int ID { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "This field is required")]
+        [MinLength(5)]
+        [MaxLength(255)]
         public string Username { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "This field is required")]
+        [MinLength(8)]
+        [MaxLength(255)]
         public string Password { get; set; }
+
+        [MaxLength(255)]
         public string FirstName { get; set; }
+
+        [MaxLength(255)]
         public string LastName { get; set; }
+
         public EnumRole Role { get; set; }
     }
 }

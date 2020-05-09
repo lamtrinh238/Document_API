@@ -33,5 +33,14 @@ namespace Document_API.Controllers
             }
             return false;
         }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
     }
 }

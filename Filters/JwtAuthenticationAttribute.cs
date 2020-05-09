@@ -1,17 +1,33 @@
-﻿using System;
+﻿using Document_API.Models;
+using Document_API.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Security.Principal;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http.Filters;
+using System.Collections;
+
+using System.Linq;
 
 namespace Document_API.Filters
 {
     public class JwtAuthenticationAttribute : Attribute, IAuthenticationFilter
     {
-        public string Realm { get; set; }
-        public bool AllowMultiple => false;
+        public JwtAuthenticationAttribute(params EnumRole[] roles)
+        {
+            Roles = roles;
+            if (Roles == null || Roles.Length == 0)
+            {
+                Roles.SetValue(EnumRole.All,0);
+            }
+        }
+
+        //public EnumRole Role { get; set; }
+        public EnumRole[] Roles { get; set; }
+
+        public bool AllowMultiple => throw new NotImplementedException();
 
         public async Task AuthenticateAsync(HttpAuthenticationContext context, CancellationToken cancellationToken)
         {
@@ -30,17 +46,36 @@ namespace Document_API.Filters
             var token = authorization.Parameter;
             var principal = await AuthenticateJwtToken(token);
 
-            if (principal == null)
+            // unauthen
+            if (principal == null) 
+            { 
                 context.ErrorResult = new AuthenticationFailureResult("Invalid token", request);
+                return;
+            }
 
-            else
+            // check role
+            if (Roles.Contains(EnumRole.All) || principal.IsInRole(EnumRole.Admin.ToString())) {
                 context.Principal = principal;
+                return;
+            }
+            foreach (var item in Roles)
+            {
+                if (principal.IsInRole(item.ToString()))
+                {
+                    context.Principal = principal;
+                    return;
+                }
+            }
+
+            // More validate to check whether username 
+            //TO DO
+            context.ErrorResult = new AuthenticationFailureResult("Unauthorized", request);
+            return;
         }
 
-        private static bool ValidateToken(string token, out string username)
+        private static bool ValidateToken(string token, out User user)
         {
-            username = null;
-
+            user = new User();
             var simplePrinciple = JwtManager.GetPrincipal(token);
             var identity = simplePrinciple?.Identity as ClaimsIdentity;
 
@@ -51,31 +86,32 @@ namespace Document_API.Filters
                 return false;
 
             var usernameClaim = identity.FindFirst(ClaimTypes.Name);
-            username = usernameClaim?.Value;
+            user.Username = usernameClaim?.Value;
+            var userRoleClaim = identity.FindFirst(ClaimTypes.Role);
+            Enum.TryParse(userRoleClaim?.Value, out EnumRole roleVal);
+            user.Role = roleVal;
 
-            if (string.IsNullOrEmpty(username))
+            if (string.IsNullOrEmpty(user.Username))
                 return false;
-
-            // More validate to check whether username exists in system
 
             return true;
         }
 
         protected Task<IPrincipal> AuthenticateJwtToken(string token)
         {
-            if (ValidateToken(token, out var username))
+            bool isValidToken = ValidateToken(token, out User user);
+            if (isValidToken)
             {
-                // based on username to get more information from database in order to build local identity
                 var claims = new List<Claim>
                 {
-                    new Claim(ClaimTypes.Name, username)
-                    // Add more claims if needed: Roles, ...
+                    new Claim(ClaimTypes.Name, user.Username),
+                    new Claim(ClaimTypes.Role, user.Role.ToString())
                 };
 
                 var identity = new ClaimsIdentity(claims, "Jwt");
-                IPrincipal user = new ClaimsPrincipal(identity);
+                IPrincipal userPrincipal = new ClaimsPrincipal(identity);
 
-                return Task.FromResult(user);
+                return Task.FromResult(userPrincipal);
             }
 
             return Task.FromResult<IPrincipal>(null);

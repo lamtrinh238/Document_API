@@ -31,8 +31,19 @@
                     new User{Username = "lamtrinh", FirstName = "Trinh2", LastName = "Lam2", Password = "1", Role = EnumRole.Contributor},
                 };
                 users.ForEach(s => context.Users.Add(s));
-                context.SaveChanges();
             }
+
+            if (!context.Categorys.Any())
+            {
+                var categorys = new List<Category>
+                {
+                    new Category{Title = "Blog"},
+                    new Category{Title = "News"}
+                };
+                categorys.ForEach(s => context.Categorys.Add(s));
+            }
+
+            context.SaveChanges();
         }
     }
 }
