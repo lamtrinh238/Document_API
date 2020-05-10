@@ -6,6 +6,7 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
 using Document_API.DAL;
@@ -87,6 +88,7 @@ namespace Document_API.Controllers
         [JwtAuthentication( EnumRole.Admin)]
         public IHttpActionResult PostCategory(Category category)
         {
+            var httpRequest = HttpContext.Current.Request;
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);

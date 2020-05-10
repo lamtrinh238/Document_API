@@ -9,7 +9,9 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using Document_API.DAL;
+using Document_API.Filters;
 using Document_API.Models;
+using Document_API.Utilities;
 
 namespace Document_API.Controllers
 {
@@ -18,13 +20,21 @@ namespace Document_API.Controllers
         private DocumentContext db = new DocumentContext();
 
         // GET: api/Documents
-        public IQueryable<Document> GetDocuments()
+        [JwtAuthentication(EnumRole.User, EnumRole.Contributor)]
+        public IHttpActionResult GetDocuments()
         {
-            return db.Documents;
+            List<Document> document = db.Documents.ToList();
+            if (document == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(document);
         }
 
         // GET: api/Documents/5
         [ResponseType(typeof(Document))]
+        [JwtAuthentication(EnumRole.User, EnumRole.Contributor)]
         public IHttpActionResult GetDocument(int id)
         {
             Document document = db.Documents.Find(id);
@@ -38,6 +48,7 @@ namespace Document_API.Controllers
 
         // PUT: api/Documents/5
         [ResponseType(typeof(void))]
+        [JwtAuthentication(EnumRole.Contributor)]
         public IHttpActionResult PutDocument(int id, Document document)
         {
             if (!ModelState.IsValid)
@@ -73,6 +84,7 @@ namespace Document_API.Controllers
 
         // POST: api/Documents
         [ResponseType(typeof(Document))]
+        [JwtAuthentication(EnumRole.Contributor)]
         public IHttpActionResult PostDocument(Document document)
         {
             if (!ModelState.IsValid)
@@ -88,6 +100,7 @@ namespace Document_API.Controllers
 
         // DELETE: api/Documents/5
         [ResponseType(typeof(Document))]
+        [JwtAuthentication(EnumRole.Contributor)]
         public IHttpActionResult DeleteDocument(int id)
         {
             Document document = db.Documents.Find(id);
