@@ -7,13 +7,13 @@ namespace Document_API.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.0")]
-    public sealed partial class AddDocument : IMigrationMetadata
+    public sealed partial class InitData : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddDocument));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(InitData));
         
         string IMigrationMetadata.Id
         {
-            get { return "202005081453121_AddDocument"; }
+            get { return "202005111702418_InitData"; }
         }
         
         string IMigrationMetadata.Source
