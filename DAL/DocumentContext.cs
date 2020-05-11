@@ -13,6 +13,7 @@ namespace Document_API.DAL
 
         public DocumentContext() : base("DefaultConnection")
         {
+            this.Configuration.LazyLoadingEnabled = false;
         }
 
         public DbSet<User> Users { get; set; }

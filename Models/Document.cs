@@ -26,7 +26,11 @@ namespace Document_API.Models
         [MaxLength(255)]
         public string Description { get; set; }
 
-        [AllowHtml]
-        public string Content { get; set; }
+        [MaxLength(255)]
+        public string CoverFileExtension { get; set; }
+
+
+        [MaxLength(255)]
+        public string ContentFileExtension { get; set; }
     }
 }

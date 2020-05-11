@@ -17,18 +17,13 @@
 
         protected override void Seed(Document_API.DAL.DocumentContext context)
         {
-            //  This method will be called after migrating to the latest version.
-
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method
-            //  to avoid creating duplicate seed data.
-
             if (!context.Users.Any())
             {
                 var users = new List<User>
                 {
-                    new User{Username = "lamtrinh", FirstName = "Trinh1", LastName = "Lam1", Password = "1", Role = EnumRole.User},
-                    new User{Username = "lamtrinh", FirstName = "Trinh2", LastName = "Lam2", Password = "1", Role = EnumRole.Admin},
-                    new User{Username = "lamtrinh", FirstName = "Trinh2", LastName = "Lam2", Password = "1", Role = EnumRole.Contributor},
+                    new User{Username = "lamtrinh1", FirstName = "Trinh1", LastName = "Lam1", Password = "12345678", Role = EnumRole.User},
+                    new User{Username = "lamtrinh2", FirstName = "Trinh2", LastName = "Lam2", Password = "12345678", Role = EnumRole.Contributor},
+                    new User{Username = "lamtrinh3", FirstName = "Trinh3", LastName = "Lam3", Password = "12345678", Role = EnumRole.Admin},
                 };
                 users.ForEach(s => context.Users.Add(s));
             }

@@ -17,7 +17,6 @@
                         OwnerID = c.Int(nullable: false),
                         Cover = c.Binary(),
                         Description = c.String(maxLength: 255),
-                        Content = c.String(),
                     })
                 .PrimaryKey(t => t.ID)
                 .ForeignKey("dbo.Category", t => t.CategoryID, cascadeDelete: true)

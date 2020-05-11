@@ -115,6 +115,64 @@ namespace Document_API.Controllers
             return Ok(document);
         }
 
+        [HttpGet]
+        [ActionName("DownloadCover")]
+        public HttpResponseMessage DownloadCover(int id)
+        {
+            HttpResponseMessage result = null;
+            try
+            {
+                var document = db.Documents.Find(id);
+
+                if (document == null)
+                {
+                    result = Request.CreateResponse(HttpStatusCode.Gone);
+                }
+                else
+                {
+                    result = Request.CreateResponse(HttpStatusCode.OK);
+                    result.Content = new ByteArrayContent(document.Cover);
+                    result.Content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("attachment");
+                    result.Content.Headers.ContentDisposition.FileName = document.Title + "_Cover." + document.CoverFileExtension;
+                }
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.Gone);
+            }
+        }
+
+        [HttpGet]
+        [ActionName("DownloadContent")]
+        public HttpResponseMessage DownloadContent(int id)
+        {
+            HttpResponseMessage result = null;
+            try
+            {
+                var document = db.Documents.Find(id);
+
+                if (document == null)
+                {
+                    result = Request.CreateResponse(HttpStatusCode.Gone);
+                }
+                else
+                {
+                    result = Request.CreateResponse(HttpStatusCode.OK);
+                    result.Content = new ByteArrayContent(document.Cover);
+                    result.Content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("attachment");
+                    result.Content.Headers.ContentDisposition.FileName = document.Title + "_Content." + document.ContentFileExtension;
+                }
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.Gone);
+            }
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

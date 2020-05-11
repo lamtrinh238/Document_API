@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
@@ -21,7 +23,7 @@ namespace Document_API.Controllers
         private DocumentContext db = new DocumentContext();
 
         // GET: api/Categories
-        [JwtAuthentication(EnumRole.User,EnumRole.Contributor)]
+        [JwtAuthentication(EnumRole.User, EnumRole.Contributor)]
         public IHttpActionResult GetCategory()
         {
             List<Category> category = db.Categorys.ToList();
@@ -85,7 +87,7 @@ namespace Document_API.Controllers
 
         // POST: api/Categories
         [ResponseType(typeof(Category))]
-        [JwtAuthentication( EnumRole.Admin)]
+        [JwtAuthentication(EnumRole.Admin)]
         public IHttpActionResult PostCategory(Category category)
         {
             var httpRequest = HttpContext.Current.Request;

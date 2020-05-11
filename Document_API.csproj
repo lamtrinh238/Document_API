@@ -187,20 +187,28 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\202005061557557_InitialCreate.cs" />
-    <Compile Include="Migrations\202005061557557_InitialCreate.designer.cs">
+    <Compile Include="Migrations\202005061557557_InitialCreate.Designer.cs">
       <DependentUpon>202005061557557_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\202005061615570_UpdateUserTable.cs" />
-    <Compile Include="Migrations\202005061615570_UpdateUserTable.designer.cs">
+    <Compile Include="Migrations\202005061615570_UpdateUserTable.Designer.cs">
       <DependentUpon>202005061615570_UpdateUserTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\202005081451376_AddCategory.cs" />
-    <Compile Include="Migrations\202005081451376_AddCategory.designer.cs">
+    <Compile Include="Migrations\202005081451376_AddCategory.Designer.cs">
       <DependentUpon>202005081451376_AddCategory.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\202005081453121_AddDocument.cs" />
-    <Compile Include="Migrations\202005081453121_AddDocument.designer.cs">
+    <Compile Include="Migrations\202005081453121_AddDocument.Designer.cs">
       <DependentUpon>202005081453121_AddDocument.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005111511539_update_document_table.cs" />
+    <Compile Include="Migrations\202005111511539_update_document_table.designer.cs">
+      <DependentUpon>202005111511539_update_document_table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005111643268_update_document_table_.cs" />
+    <Compile Include="Migrations\202005111643268_update_document_table_.designer.cs">
+      <DependentUpon>202005111643268_update_document_table_.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Document.cs" />
@@ -304,6 +312,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202005081453121_AddDocument.resx">
       <DependentUpon>202005081453121_AddDocument.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005111511539_update_document_table.resx">
+      <DependentUpon>202005111511539_update_document_table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005111643268_update_document_table_.resx">
+      <DependentUpon>202005111643268_update_document_table_.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
